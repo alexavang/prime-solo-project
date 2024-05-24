@@ -51,7 +51,7 @@ function LandingPage() {
             amet nisi.
           </p>
         </div>
-        <div className="grid-col grid-col_4">
+        {/* <div className="grid-col grid-col_4">
           <RegisterForm />
 
           <center>
@@ -60,7 +60,7 @@ function LandingPage() {
               Login
             </button>
           </center>
-        </div>
+        </div> */}
       </div>
     </div>
   );

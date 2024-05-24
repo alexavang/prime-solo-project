@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import Workouts from "../Workouts/Workouts";
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -8,7 +9,8 @@ import React from 'react';
 function InfoPage() {
   return (
     <div className="container">
-      <p>Info Page</p>
+      <p>Generated Daily Workouts</p>
+      <Workouts />
     </div>
   );
 }
