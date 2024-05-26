@@ -9,15 +9,10 @@ function UserPage() {
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
       {/* <p>Your ID is: {user.id}</p> */}
-      <h1>
-        This is where the character page goes. This renders the characters and
-        have the create and delete buttons!
-      </h1>
       <div className="lepan">
-        <img src="img/canicomeoverandlookatyoulikethis.png" alt="pan" />
+        <img src="img/FROG.png" alt="pan" />
       </div>
-      <button className="btn">Create</button>
-      <button className="btn">Delete</button>
+      <button className="btn">Select</button>
     </div>
   );
 }

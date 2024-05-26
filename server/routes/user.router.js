@@ -21,7 +21,7 @@ router.post("/register", (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = `INSERT INTO "user" (username, password)
+  const queryText = `INSERT INTO "users" (username, password)
     VALUES ($1, $2) RETURNING id`;
   pool
     .query(queryText, [username, password])
@@ -49,6 +49,22 @@ router.post("/logout", (req, res) => {
     }
     res.redirect("/");
   });
+});
+
+router.put("/", (req, res, next) => {
+  const queryText = `
+  UPDATE users 
+  SET profileImage = ${req.body.profileImage}
+  WHERE id = ${req.user.id}
+  `;
+
+  pool
+    .query(queryText)
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log("User registration failed: ", err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

@@ -9,6 +9,8 @@ const passport = require('./strategies/user.strategy');
 
 // Route Includes
 const userRouter = require('./routes/user.router');
+const dailyRouter = require('./routes/daily.router');
+const workoutRouter = require('./routes/workout.router');
 
 // Express Middleware
 app.use(express.json());
@@ -24,6 +26,8 @@ app.use(passport.session());
 
 // Routes
 app.use('/api/user', userRouter);
+app.use('/api/daily', dailyRouter);
+app.use('/api/workout', workoutRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {
