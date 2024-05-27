@@ -10,7 +10,7 @@ function UserPage() {
       <h2>Welcome, {user.username}!</h2>
       {/* <p>Your ID is: {user.id}</p> */}
       <div className="lepan">
-        <img src="img/FROG.png" alt="pan" />
+        <img src="img/FROG.png" alt="img" />
       </div>
       <button className="btn">Select</button>
     </div>

@@ -51,7 +51,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
-router.put("/", (req, res, next) => {
+router.put("/", (req, res) => {
   const queryText = `
   UPDATE users 
   SET profileImage = ${req.body.profileImage}
