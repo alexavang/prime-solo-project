@@ -2,21 +2,18 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-/**
- * GET route template
- */
+// GET workouts for current date
 router.get("/", (req, res) => {
-  // GET route code here
   console.log("Get /workout", req);
   const sqlText = `
-  SELECT * FROM workout
-    WHERE user_id = ${req.user.id}
-    DATE = CURRENT_DATE
-    ORDER by id;
+    SELECT * FROM workout
+    WHERE user_id = $1
+    AND DATE = CURRENT_DATE
+    ORDER BY id;
   `;
 
   pool
-    .query(sqlText)
+    .query(sqlText, [req.user.id])
     .then((result) => {
       res.send(result.rows);
     })
@@ -26,20 +23,17 @@ router.get("/", (req, res) => {
     });
 });
 
-/**
- * GET route template
- */
+// GET specific workout by id
 router.get("/:id", (req, res) => {
-  // GET route code here
-  console.log("Get /workout", req);
+  console.log("Get /workout/:id", req);
   const sqlText = `
-  SELECT * FROM workout
-    WHERE user_id = ${req.user.id}
-    AND id = ${req.params.id}
+    SELECT * FROM workout
+    WHERE user_id = $1
+    AND id = $2;
   `;
 
   pool
-    .query(sqlText)
+    .query(sqlText, [req.user.id, req.params.id])
     .then((result) => {
       res.send(result.rows);
     })
@@ -49,21 +43,34 @@ router.get("/:id", (req, res) => {
     });
 });
 
-/**
- * POST route template
- */
+router.get("/categories", (req, res) => {
+  const sqlText = `SELECT * FROM categories ORDER BY id;`;
+  pool
+    .query(sqlText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error fetching categories", error);
+      res.sendStatus(500);
+    });
+});
+
+// POST a new workout
 router.post("/", (req, res) => {
-  // POST route code here
   console.log("Post /workout", req);
   const sqlText = `
-  INSERT INTO users
-    ("user_id", "categories", "exercise", "reps_total", "weight")
+    INSERT INTO workout
+    (user_id, categories, exercise, reps, reps_total, weight)
     VALUES
-    (${req.user.id}, ${req.body.categories}, ${req.body.exercise}, ${req.body.reps_total}, ${req.body.weight});
+    ($1, $2, $3, $4, $5, $6)
+    RETURNING *;
   `;
 
+  const { categories, exercise, reps, reps_total, weight } = req.body;
+
   pool
-    .query(sqlText)
+    .query(sqlText, [req.user.id, categories, exercise, reps, reps_total, weight])
     .then((result) => {
       res.send(result.rows);
     })
@@ -73,26 +80,25 @@ router.post("/", (req, res) => {
     });
 });
 
-/**
- * POST route template
- */
+// Mark a workout as complete
 router.post("/:id/complete", (req, res) => {
-  // POST route code here
-  console.log("Post /workout", req);
+  console.log("Post /workout/:id/complete", req);
   const sqlText = `
-  UPDATE workout
+    UPDATE workout
     SET status = TRUE
-    WHERE id = ${req.params.id};
+    WHERE id = $1
+    AND user_id = $2;
   `;
 
   const sqlText2 = `
-  UPDATE users
+    UPDATE users
     SET experience = experience + 1
-    WHERE id = ${req.user.id};
+    WHERE id = $1;
   `;
 
   pool
-    .query(sqlText, sqlText2)
+    .query(sqlText, [req.params.id, req.user.id])
+    .then(() => pool.query(sqlText2, [req.user.id]))
     .then((result) => {
       res.send(result.rows);
     })
@@ -102,20 +108,31 @@ router.post("/:id/complete", (req, res) => {
     });
 });
 
-/**
- * PUT route template
- */
+// Update a workout
 router.put("/:id", (req, res) => {
-  // PUT route code here
-  console.log("Put /workout", req);
+  console.log("Put /workout/:id", req);
   const sqlText = `
-  UPDATE workout
-    SET reps = ${req.body.reps}, weight = ${req.body.weight} 
-    WHERE id = ${req.params.id};
+    UPDATE workout
+    SET 
+    categories = $1,
+    exercise = $2,
+    reps = $3, 
+    reps_total = $4,
+    weight = $5,
+    WHERE id = $6
+    AND user_id = $7;
   `;
 
   pool
-    .query(sqlText)
+    .query(sqlText, [
+      req.body.categories,
+      req.body.exercise,
+      req.body.reps,
+      req.body.reps_total,
+      req.body.weight,
+      req.params.id,
+      req.user.id,
+    ])
     .then((result) => {
       res.send(result.rows);
     })
@@ -125,20 +142,18 @@ router.put("/:id", (req, res) => {
     });
 });
 
-/**
- * DELETE route template
- */
+// Delete a workout
 router.delete("/:id", (req, res) => {
-  // DELETE route code here
-  console.log("Delete /workout", req);
+  console.log("Delete /workout/:id", req);
   const sqlText = `
-  DELETE FROM workout
-    WHERE id = ${req.params.id}
+    DELETE FROM workout
+    WHERE id = $1
+    AND user_id = $2
     AND status = FALSE;
   `;
 
   pool
-    .query(sqlText)
+    .query(sqlText, [req.params.id, req.user.id])
     .then((result) => {
       res.send(result.rows);
     })
