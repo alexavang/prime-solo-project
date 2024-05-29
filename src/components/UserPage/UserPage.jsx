@@ -8,10 +8,9 @@ function UserPage() {
   return (
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
+      <img src={user.profileImage} alt="profilePictures" />
       {/* <p>Your ID is: {user.id}</p> */}
-      <div className="lepan">
-        <img src="img/workinout.png" alt="img" />
-      </div>
+      <br></br>
       <button className="btn">Select</button>
     </div>
   );
