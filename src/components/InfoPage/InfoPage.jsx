@@ -9,7 +9,27 @@ import Workouts from "../Workouts/Workouts";
 function InfoPage() {
   return (
     <div className="container">
-      <p>Generated Daily Workouts</p>
+      <h1>Generated Daily Workouts</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th>Reps</th>
+            <th>Reps Total</th>
+            <th>Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Push-Ups</td>
+            <td>25</td>
+            <td>50</td>
+            <td></td>
+            <button>Add</button>
+          </tr>
+        </tbody>
+      </table>
+      <br />
       <Workouts />
     </div>
   );
