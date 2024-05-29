@@ -118,7 +118,7 @@ input {
 HTML 
 -------------------------------------------------------------------------------- */
 
-#preloader {
+/* #preloader {
   background: #000 url(img/man.gif) no-repeat center center;
   background-size: cover;
   height: 100vh;
@@ -127,4 +127,4 @@ HTML
   z-index: 100;
   padding: 0;
   margin: 0;
-}
+} */
