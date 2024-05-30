@@ -7,7 +7,6 @@ function Workouts() {
   const categories = ["Upper Body", "Lower Body", "Back and Core"];
 
   const [Exercise, setExercise] = useState({
-    id: null,
     categories: "",
     exercise: "",
     reps: "",
@@ -33,7 +32,6 @@ function Workouts() {
       dispatch({ type: "ADD_WORKOUT", payload: Exercise });
     }
     setExercise({
-      id: null,
       categories: "",
       exercise: "",
       reps: "",
