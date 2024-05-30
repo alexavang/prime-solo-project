@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Workouts() {
   const dispatch = useDispatch();
   const workouts = useSelector((state) => state.workouts);
-  const categories = [
-    "Upper Body Exercises",
-    "Lower Body Exercises",
-    "Back and Core Exercises",
-  ];
+  const categories = ["Upper Body", "Lower Body", "Back and Core"];
 
   const [Exercise, setExercise] = useState({
     id: null,
@@ -31,6 +27,7 @@ function Workouts() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (Exercise.id) {
+      console.log("Updating workout:", Exercise);
       dispatch({ type: "UPDATE_WORKOUT", payload: Exercise });
     } else {
       dispatch({ type: "ADD_WORKOUT", payload: Exercise });

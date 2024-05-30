@@ -2,7 +2,6 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-// GET workouts for current date
 router.get("/", (req, res) => {
   console.log("Get /workout", req);
   const sqlText = `
@@ -23,7 +22,6 @@ router.get("/", (req, res) => {
     });
 });
 
-// GET specific workout by id
 router.get("/:id", (req, res) => {
   console.log("Get /workout/:id", req);
   const sqlText = `
@@ -44,7 +42,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/categories", (req, res) => {
-  const sqlText = `SELECT * FROM categories ORDER BY id;`;
+  const sqlText = `
+  SELECT * FROM categories ORDER BY id;`;
   pool
     .query(sqlText)
     .then((result) => {
@@ -70,7 +69,14 @@ router.post("/", (req, res) => {
   const { categories, exercise, reps, reps_total, weight } = req.body;
 
   pool
-    .query(sqlText, [req.user.id, categories, exercise, reps, reps_total, weight])
+    .query(sqlText, [
+      req.user.id,
+      categories,
+      exercise,
+      reps,
+      reps_total,
+      weight,
+    ])
     .then((result) => {
       res.send(result.rows);
     })
@@ -118,7 +124,7 @@ router.put("/:id", (req, res) => {
     exercise = $2,
     reps = $3, 
     reps_total = $4,
-    weight = $5,
+    weight = $5
     WHERE id = $6
     AND user_id = $7;
   `;
