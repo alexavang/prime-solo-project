@@ -51,18 +51,19 @@ router.post("/logout", (req, res) => {
   });
 });
 
-router.put("/", (req, res) => {
+router.put("/", rejectUnauthenticated, (req, res) => {
   const queryText = `
-  UPDATE users 
-  SET profileImage = ${req.body.profileImage}
-  WHERE id = ${req.user.id}
+    UPDATE users 
+    SET "profileImage" = $1
+    WHERE id = $2
   `;
+  const queryParams = [req.body.profileImage, req.user.id];
 
   pool
-    .query(queryText)
+    .query(queryText, queryParams)
     .then(() => res.sendStatus(201))
     .catch((err) => {
-      console.log("User registration failed: ", err);
+      console.log("User profile image update failed: ", err);
       res.sendStatus(500);
     });
 });
