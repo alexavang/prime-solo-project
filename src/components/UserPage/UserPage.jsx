@@ -13,11 +13,13 @@ function UserPage() {
   return (
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
-      <img src={user.profileImage} alt="Profile" />
+      <img src={user.profileImage} alt="profilePictures" />
       <br />
-      <button className="btn" onClick={navigateToImageSelection}>
-        Select
-      </button>
+      {!user.profileImage && (
+        <button className="btn" onClick={navigateToImageSelection}>
+          Select
+        </button>
+      )}
     </div>
   );
 }

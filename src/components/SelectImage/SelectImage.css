@@ -1,0 +1,21 @@
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .image-item {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .image-item p {
+    margin-bottom: 5px;
+  }
+  
+  .image-item img {
+    width: 250px; 
+    height: 250px; 
+    object-fit: cover;
+  }
+  
