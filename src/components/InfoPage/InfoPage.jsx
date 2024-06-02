@@ -16,7 +16,13 @@ function InfoPage() {
   }, [dispatch]);
 
   const handleAddWorkout = (workout) => {
-    dispatch({ type: "ADD_WORKOUT", payload: workout });
+    const newWorkout = {
+      ...workout,
+      reps: 0, 
+      reps_total: 10, 
+      weight: 0, 
+    };
+    dispatch({ type: "ADD_WORKOUT", payload: newWorkout });
   };
 
   return (
@@ -25,19 +31,15 @@ function InfoPage() {
       <table>
         <thead>
           <tr>
+            <th>Category</th>
             <th>Exercise</th>
-            <th>Reps</th>
-            <th>Reps Total</th>
-            <th>Weight</th>
           </tr>
         </thead>
         <tbody>
           {generatedWorkouts.map((workout, index) => (
             <tr key={index}>
+              <td>{workout.categories}</td>
               <td>{workout.exercise}</td>
-              <td>{workout.reps}</td>
-              <td>{workout.reps_total}</td>
-              <td>{workout.weight}</td>
               <td>
                 <button onClick={() => handleAddWorkout(workout)}>Add</button>
               </td>
