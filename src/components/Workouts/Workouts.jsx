@@ -48,6 +48,15 @@ function Workouts() {
     dispatch({ type: "DELETE_WORKOUT", payload: id });
   };
 
+  const handleCompleteWorkout = (workout) => {
+    const completedWorkout = {
+      ...workout,
+      reps: workout.reps_total,
+      status: true,
+    };
+    dispatch({ type: "COMPLETE_WORKOUT", payload: completedWorkout });
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Users Workouts</h2>
@@ -112,7 +121,10 @@ function Workouts() {
         </thead>
         <tbody>
           {workouts.map((workout) => (
-            <tr key={workout.id}>
+            <tr
+              key={workout.id}
+              style={{ backgroundColor: workout.status ? "green" : "inherit" }}
+            >
               <td>{workout.categories}</td>
               <td>{workout.exercise}</td>
               <td>{workout.reps}</td>
@@ -131,6 +143,11 @@ function Workouts() {
                 >
                   Delete
                 </button>
+                {!workout.status && (
+                  <button onClick={() => handleCompleteWorkout(workout)}>
+                    Complete
+                  </button>
+                )}
               </td>
             </tr>
           ))}

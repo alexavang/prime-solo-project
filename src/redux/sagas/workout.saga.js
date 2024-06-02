@@ -51,12 +51,25 @@ function* deleteWorkout(action) {
   }
 }
 
+function* completeWorkout(action) {
+  try {
+    const response = yield axios.post(
+      `/api/workout/${action.payload.id}/complete`,
+      action.payload
+    );
+    yield put({ type: "FETCH_WORKOUTS" });
+  } catch (error) {
+    console.log("Workout complete request failed", error);
+  }
+}
+
 function* workoutSaga() {
   yield takeLatest("FETCH_WORKOUTS", fetchWorkouts);
   yield takeLatest("FETCH_CATEGORIES", fetchCategories);
   yield takeLatest("ADD_WORKOUT", addWorkout);
   yield takeLatest("UPDATE_WORKOUT", updateWorkout);
   yield takeLatest("DELETE_WORKOUT", deleteWorkout);
+  yield takeLatest("COMPLETE_WORKOUT", completeWorkout);
 }
 
 export default workoutSaga;

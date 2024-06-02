@@ -2,6 +2,12 @@ const workouts = (state = [], action) => {
   switch (action.type) {
     case "SET_WORKOUTS":
       return action.payload;
+    case "UPDATE_WORKOUT":
+      return state.map((workout) =>
+        workout.id === action.payload.id
+          ? { ...workout, reps_done: action.payload.reps_total, status: true }
+          : workout
+      );
     default:
       return state;
   }

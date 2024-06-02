@@ -86,14 +86,17 @@ router.post("/", (req, res) => {
     });
 });
 
-// Mark a workout as complete
 router.post("/:id/complete", (req, res) => {
-  console.log("Post /workout/:id/complete", req);
-  const sqlText = `
+  const workoutId = req.params.id;
+  const userId = req.user.id;
+  const { reps_total } = req.body;
+
+  const sqlText1 = `
     UPDATE workout
-    SET status = TRUE
-    WHERE id = $1
-    AND user_id = $2;
+    SET status = TRUE,
+        reps = $1
+    WHERE id = $2
+    AND user_id = $3;
   `;
 
   const sqlText2 = `
@@ -102,16 +105,25 @@ router.post("/:id/complete", (req, res) => {
     WHERE id = $1;
   `;
 
-  pool
-    .query(sqlText, [req.params.id, req.user.id])
-    .then(() => pool.query(sqlText2, [req.user.id]))
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log("router POST error", error);
+  (async () => {
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+
+      await client.query(sqlText1, [reps_total, workoutId, userId]);
+
+      await client.query(sqlText2, [userId]);
+
+      await client.query("COMMIT");
+      res.sendStatus(201);
+    } catch (err) {
+      await client.query("ROLLBACK");
+      console.error("Transaction Error:", err);
       res.sendStatus(500);
-    });
+    } finally {
+      client.release();
+    }
+  })();
 });
 
 // Update a workout
