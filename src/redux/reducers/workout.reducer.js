@@ -22,4 +22,13 @@ const categories = (state = [], action) => {
   }
 };
 
-export { workouts, categories };
+const generatedWorkouts = (state = [], action) => {
+  switch (action.type) {
+    case "SET_GENERATED_WORKOUTS":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export { workouts, categories, generatedWorkouts };

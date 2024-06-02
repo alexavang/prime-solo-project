@@ -63,7 +63,17 @@ function* completeWorkout(action) {
   }
 }
 
+function* fetchGeneratedWorkouts() {
+  try {
+    const response = yield axios.get("/api/daily");
+    yield put({ type: "SET_GENERATED_WORKOUTS", payload: response.data });
+  } catch (error) {
+    console.log("Generated workouts get request failed", error);
+  }
+}
+
 function* workoutSaga() {
+  yield takeLatest("FETCH_GENERATED_WORKOUTS", fetchGeneratedWorkouts);
   yield takeLatest("FETCH_WORKOUTS", fetchWorkouts);
   yield takeLatest("FETCH_CATEGORIES", fetchCategories);
   yield takeLatest("ADD_WORKOUT", addWorkout);
