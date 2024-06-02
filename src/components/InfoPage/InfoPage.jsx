@@ -13,16 +13,16 @@ function InfoPage() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_GENERATED_WORKOUTS" });
-  }, [dispatch]);
+  }, []);
 
   const handleAddWorkout = (workout) => {
-    const newWorkout = {
+    const dailyWorkout = {
       ...workout,
       reps: 0, 
       reps_total: 10, 
       weight: 0, 
     };
-    dispatch({ type: "ADD_WORKOUT", payload: newWorkout });
+    dispatch({ type: "ADD_WORKOUT", payload: dailyWorkout });
   };
 
   return (

@@ -123,7 +123,10 @@ function Workouts() {
           {workouts.map((workout) => (
             <tr
               key={workout.id}
-              style={{ backgroundColor: workout.status ? "green" : "inherit" }}
+              style={{
+                textDecorationLine: workout.status ? "line-through" : "none",
+                textDecorationColor: workout.status ? "#6F0AF0" : "none",
+              }}
             >
               <td>{workout.categories}</td>
               <td>{workout.exercise}</td>
