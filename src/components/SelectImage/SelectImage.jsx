@@ -2,39 +2,40 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import './SelectImage.css';  // Make sure to import the CSS file correctly
+import './SelectImage.css';
 
 function SelectImage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const images = [
-    { src: "img/aaaastress.png", name: "Aaaastress" },
-    { src: "img/angy.png", name: "Angy" },
-    { src: "img/canicomeoverandstareatyoulikethis.png", name: "Can I Come Over" },
-    { src: "img/delicious.png", name: "Delicious" },
-    { src: "img/doggo.png", name: "Doggo" },
-    { src: "img/duck.png", name: "Duck" },
-    { src: "img/fist.png", name: "Fist" },
-    { src: "img/flowerforyou.png", name: "Flower for You" },
-    { src: "img/hehe.png", name: "Hehe" },
-    { src: "img/hepme.png", name: "Hepme" },
-    { src: "img/kirb.png", name: "Kirb" },
+    { src: "img/aaaastress.png", name: "aaaastress" },
+    { src: "img/angy.png", name: "angy" },
+    { src: "img/canicomeoverandstareatyoulikethis.png", name: "canicomeoverandstareatyoulikethis" },
+    { src: "img/delicious.png", name: "delicious" },
+    { src: "img/doggo.png", name: "doggo" },
+    { src: "img/duck.png", name: "duck" },
+    { src: "img/fist.png", name: "fist" },
+    { src: "img/flowerforyou.png", name: "flowerforyou" },
+    { src: "img/hehe.png", name: "hehe" },
+    { src: "img/hepme.png", name: "hepme" },
+    { src: "img/kirb.png", name: "kirb" },
     { src: "img/L.png", name: "L" },
-    { src: "img/morty.png", name: "Morty" },
-    { src: "img/nice.png", name: "Nice" },
-    { src: "img/nothoughts.png", name: "No Thoughts" },
-    { src: "img/ohmygaahh.png", name: "Oh My Gaahh" },
-    { src: "img/opertato.png", name: "Opertato" },
-    { src: "img/pain.png", name: "Pain" },
-    { src: "img/pan.png", name: "Pan" },
-    { src: "img/racc.png", name: "Racc" },
-    { src: "img/sadoge.png", name: "Sadoge" },
-    { src: "img/slay.png", name: "Slay" },
-    { src: "img/thonking.png", name: "Thonking" },
-    { src: "img/willnt.png", name: "Willnt" },
-    { src: "img/workinout.png", name: "Workinout" },
-    { src: "img/xcuseme.png", name: "Excuse Me" },
+    { src: "img/morty.png", name: "morty" },
+    { src: "img/nice.png", name: "nice" },
+    { src: "img/nothoughts.png", name: "nothoughts" },
+    { src: "img/ohmygaahh.png", name: "ohmygaahh" },
+    { src: "img/opertato.png", name: "opertato" },
+    { src: "img/pain.png", name: "pain" },
+    { src: "img/pan.png", name: "pan" },
+    { src: "img/racc.png", name: "racc" },
+    { src: "img/sadoge.png", name: "sadoge" },
+    { src: "img/slay.png", name: "slay" },
+    { src: "img/thonking.png", name: "thonking" },
+    { src: "img/willnt.png", name: "willnt" },
+    { src: "img/workinout.png", name: "workinout" },
+    { src: "img/xcuseme.png", name: "xcuseme" },
+    { src: "img/biscuitsbiscuits.png", name: "biscuitsbiscuits" },
   ];
 
   const handleImageSelect = (image) => {
