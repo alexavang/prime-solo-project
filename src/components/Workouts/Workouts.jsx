@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "./Workouts.css";
 
 function Workouts() {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ function Workouts() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Users Workouts</h2>
+      <h1>Users Workouts</h1>
       <select
         name="categories"
         value={Exercise.categories}
@@ -108,54 +109,56 @@ function Workouts() {
         required
       />
       <button type="submit">{Exercise.id ? "Update" : "Add"}</button>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Exercise</th>
-            <th>Reps</th>
-            <th>Reps Total</th>
-            <th>Weight</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workouts.map((workout) => (
-            <tr
-              key={workout.id}
-              style={{
-                textDecorationLine: workout.status ? "line-through" : "none",
-                textDecorationColor: workout.status ? "#6F0AF0" : "none",
-              }}
-            >
-              <td>{workout.categories}</td>
-              <td>{workout.exercise}</td>
-              <td>{workout.reps}</td>
-              <td>{workout.reps_total}</td>
-              <td>{workout.weight}</td>
-              <td>
-                <button
-                  type="button"
-                  onClick={() => handleEditWorkout(workout)}
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteWorkout(workout.id)}
-                >
-                  Delete
-                </button>
-                {!workout.status && (
-                  <button onClick={() => handleCompleteWorkout(workout)}>
-                    Complete
-                  </button>
-                )}
-              </td>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Exercise</th>
+              <th>Reps</th>
+              <th>Reps Total</th>
+              <th>Weight</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {workouts.map((workout) => (
+              <tr
+                key={workout.id}
+                style={{
+                  textDecorationLine: workout.status ? "line-through" : "none",
+                  textDecorationColor: workout.status ? "#6F0AF0" : "none",
+                }}
+              >
+                <td>{workout.categories}</td>
+                <td>{workout.exercise}</td>
+                <td>{workout.reps}</td>
+                <td>{workout.reps_total}</td>
+                <td>{workout.weight}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => handleEditWorkout(workout)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteWorkout(workout.id)}
+                  >
+                    Delete
+                  </button>
+                  {!workout.status && (
+                    <button onClick={() => handleCompleteWorkout(workout)}>
+                      Complete
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </form>
   );
 }

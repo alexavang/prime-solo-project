@@ -18,9 +18,9 @@ function InfoPage() {
   const handleAddWorkout = (workout) => {
     const dailyWorkout = {
       ...workout,
-      reps: 0, 
-      reps_total: 10, 
-      weight: 0, 
+      reps: 0,
+      reps_total: 10,
+      weight: 0,
     };
     dispatch({ type: "ADD_WORKOUT", payload: dailyWorkout });
   };
@@ -33,6 +33,7 @@ function InfoPage() {
           <tr>
             <th>Category</th>
             <th>Exercise</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
