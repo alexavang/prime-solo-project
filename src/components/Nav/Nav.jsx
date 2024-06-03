@@ -10,6 +10,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
+        {/* <img src="/workinout.png" alt="logo" /> */}
         <h2 className="nav-title">Fitnesup</h2>
       </Link>
       <div>

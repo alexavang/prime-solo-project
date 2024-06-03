@@ -27,6 +27,8 @@ function AboutPage() {
           The next challenge I'm excited to tackle is implementing leaderboards
           to see other users' progress!
         </p>
+        <br />
+        <h2>Thank you!</h2>
       </div>
     </div>
   );
